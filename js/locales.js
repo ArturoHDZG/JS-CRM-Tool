@@ -15,8 +15,8 @@ async function loadTranslations(lang) {
  * @param {Object} translations - The translations object.
  */
 function applyTranslations(translations) {
-  document.querySelectorAll('[data-i18n]').forEach(element => {
-    const key = element.getAttribute('data-i18n');
+  document.querySelectorAll('[data-locales]').forEach(element => {
+    const key = element.getAttribute('data-locales');
     element.textContent = translations[key] || key;
   });
 }
