@@ -5,14 +5,14 @@
   document.addEventListener('DOMContentLoaded', () => {
     connectDB();
 
-    form.addEventListener('submit', validateClient)
+    form.addEventListener('submit', validateClient);
   });
 
   function connectDB() {
     const openConnection = window.indexedDB.open('crm', 1);
 
     openConnection.onerror = () => {
-      console.log('Hubo un error');
+      insertAlert('Hubo un error, intenta de nuevo', 'error');
     };
 
     openConnection.onsuccess = () => {
@@ -33,7 +33,15 @@
       return;
     }
 
-    // addClientToDB(nombre, email, tel, empresa);
+    const client = {
+      nombre,
+      email,
+      tel,
+      empresa,
+      id: Date.now()
+    };
+
+    newClient(client);
   }
 
   function insertAlert(message, type) {
@@ -57,5 +65,25 @@
         alert.remove();
       }, ALERT_DURATION);
     }
+  }
+
+  function newClient(client) {
+    const TIME_REDIRECT = 3000;
+    const transaction = db.transaction(['crm'],'readwrite');
+    const objectStore = transaction.objectStore('crm');
+
+    objectStore.add(client);
+
+    transaction.onerror = () => {
+      insertAlert('Hubo un error, intenta de nuevo', 'error');
+    };
+
+    transaction.oncomplete = () => {
+      insertAlert('Cliente agregado correctamente');
+
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, TIME_REDIRECT);
+    };
   }
 })();
