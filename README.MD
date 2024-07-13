@@ -2,7 +2,7 @@
 
 ## Description
 
-2024-05-26 **PROJECT START**
+2024-07-13 **PROJECT FINISHED**
 
 This project is a learning exercise aimed at creating an efficient and user-friendly client management system. It allows the company staff to schedule, update, and keep track of client interactions, ensuring smooth operations and improved customer service.
 
